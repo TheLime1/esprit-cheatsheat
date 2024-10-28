@@ -315,7 +315,7 @@ cat /etc/home | wc -l
 
 result is **79**
 
-![chrome_qgopHvIxfj.png](chrome_qgopHvIxfj.png)
+![chrome_qgopHvIxfj.png](imgs/chrome_qgopHvIxfj.png)
 
 
 # 2A
