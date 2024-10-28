@@ -1372,3 +1372,59 @@ Répertorier les entrées du gestionnaire de démarrage EFI
 | `sudo efibootmgr -c -d /dev/sda -p 1 -L "Ubuntu20" -l '\EFI\ubuntu\bootx64.ef'` | Creates a new boot entry for Ubuntu. -c create -d disk -l name -l location  |
 | `sudo efibootmgr -n <numeroEntrée>`                                             | Sets the next boot entry to `<numeroEntrée>`.                               |
 | `efibootmgr -t <délai>`                                                         | Sets the boot manager timeout to `<délai>`.                                 |
+
+## GRUB Configuration
+
+The file: `/etc/default/grub` is the main configuration file for GRUB2. It contains default settings that influence the overall behavior of the bootloader.
+
+### Key Parameters
+
+- **`GRUB_DEFAULT`**
+  - Defines the default entry in the GRUB boot menu.
+  - A numeric value corresponds to the position in the menu, while `"saved"` boots the last used system.
+
+- **`GRUB_TIMEOUT_STYLE`**
+  - Determines the display style of the menu: it can be visible, hidden, or hidden with a timeout.
+
+- **`GRUB_TIMEOUT`**
+  - Specifies the number of seconds before automatically booting the default OS.
+
+- **`GRUB_DISTRIBUTOR`**
+  - Customizes the title displayed in the GRUB menu, based on the distribution by default.
+
+- **`GRUB_CMDLINE_LINUX_DEFAULT`**
+  - Configures the default kernel boot options, such as `"splash"` for a graphical screen or `"quiet"` to reduce messages.
+
+Remarque : Suite à chaque modification du fichier /etc/default/grub, on doit exécuter la
+commande `update-grub` pour mettre à jour le fichier de configuration /boot/grub/grub.cfg
+puis redémarrer.
+
+## example of config code
+
+```bash
+modifer_efimenu(){
+echo "1.entre le nombre de boot que vous voulez supprimer"
+echo "2.entrer le nombre que vous voulez ajouter"
+echo "3.si vous voulez changer le ordre des boot "
+echo "4.boot next"
+echo "5.afficher le menu avec son shema"
+echo"0. quittez"
+read -p "entrer le choix" choix
+case $choix in 
+1) read -p "entre le nombre de boot que vous voulez supprimer" a
+ sudo efibootmgr -B -b $a
+2) read -p "Entrez le nombre de boot que vous voulez ajouter : " nombre
+read -p "Entrez le nom du boot : " nom 
+   sudo efibootmgr -c -d /dev/sda -p $nombre -L "$nom" -l '\EFI\ubuntu\bootx64.efi'
+3) read -p "entre lordre" a
+   sudo efibootmgr -o $a 
+4) read -p "entrer le numero de boot" n
+   sudo efibootmgr -n $n
+5) sudo efibootmgr -v
+0) exit 0
+*) echo "choix invalide"
+esac 
+}
+```
+
+![grub custom](imgs/chrome_oke9YhgVCj.png)
