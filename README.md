@@ -15,8 +15,6 @@
 
 ## Linux
 
-# 2.Linux
-
 <aside>
 💡 quick thoughts :
 
