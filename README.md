@@ -1357,6 +1357,12 @@ symfony console make:migration
 symfony console doctrine:migrations:migrate
 ```
 
+form
+
+```sh
+symfony console make:form
+```
+
 ## UNIX
 
 Répertorier les entrées du gestionnaire de démarrage EFI
