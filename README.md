@@ -1356,6 +1356,7 @@ migration
 symfony console make:migration
 symfony console doctrine:migrations:migrate
 ```
+![migration](imgs/chrome_JHV4cbKHyJ.png)
 
 form
 
